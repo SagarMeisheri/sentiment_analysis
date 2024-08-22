@@ -68,6 +68,7 @@ python sentiment_analysis.py \
 - Training data has 2 labels, 0-Negative, 4-Positive. Model is trained as binary classification.
 - Test data has 3 labels, 0-Negative, 2-Neutral, 4-Positive. Hence, neutral labels are removed from test set during evaluation.
 - To evaluate the model on Test data, use the following commands
+- Plots are moved under test_results
 
 ```
 from utils import testdata_remove_neutral, evaluate_testdata
