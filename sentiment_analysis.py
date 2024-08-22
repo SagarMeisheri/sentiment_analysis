@@ -46,7 +46,7 @@ class SentimentClassifier:
         if self.model is None:
             # Load the saved model
             self.model = tf.keras.models.load_model(self.model_path)
-
+        
         # Encode and preprocess the sentence
         model_embed = SentenceTransformer('all-MiniLM-L6-v2')
         embeddings = model_embed.encode([sentence], normalize_embeddings=True)
@@ -56,7 +56,8 @@ class SentimentClassifier:
         sentiment = 'positive' if sentiment_score >= 0.5 else 'negative'
 
         return json.dumps({'sentiment':sentiment, 'sentiment_score': str(sentiment_score)})
-    
+   
+   
 def main():
     parser = argparse.ArgumentParser(description="Sentiment Classifier")
     parser.add_argument("--train_file", help="Path to the train data file")
