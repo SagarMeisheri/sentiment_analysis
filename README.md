@@ -63,6 +63,27 @@ python sentiment_analysis.py \
 - sentence: The sentence to classify.
 - The output will be a JSON string indicating the predicted sentiment and score (e.g., {"sentiment": "positive", "sentiment_score": "0.98"}).
 
+### Evaluating model on Test data 
+
+- Training data has 2 labels, 0-Negative, 4-Positive. Model is trained as binary classification.
+- Test data has 3 labels, 0-Negative, 2-Neutral, 4-Positive. Hence, neutral labels are removed from test set during evaluation.
+- To evaluate the model on Test data, use the following commands
+
+```
+from utils import testdata_remove_neutral, evaluate_testdata
+
+testdata_no_neutral = testdata_remove_neutral(filename='testdata.manual.2009.06.14.csv')
+testdata_no_neutral.to_csv('testdata_no_neutral.csv' , index=False, header=False)
+
+y_pred_prob, y_pred = evaluate_testdata(test_file='testdata_no_neutral.csv'
+                                , model_path='v2_sentiment_model.keras'
+                                , threshold=0.5
+                                )
+
+plot_classifier_metrics(testdata_no_neutral, y_pred, y_pred_prob)
+
+```
+
 ## REST-API: Google Cloud Function for Sentiment Analysis
 
 This repository contains a Google Cloud Function that analyzes the sentiment of a given sentence. It utilizes a pre-trained sentence transformer model (all-MiniLM-L6-v2) to encode the sentence into a numerical representation and a custom Keras sentiment model to predict the sentiment (positive or negative) based on the embedding.
