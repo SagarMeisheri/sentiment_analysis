@@ -4,18 +4,21 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.calibration import LabelEncoder
 import torch
+import random
 
 
 # Function to remove Twitter handles
 def remove_handles(tweet):
     return re.sub(r'@\w+', '', tweet)
 
+
 # Function to remove url
 def remove_url(tweet):
   url_pattern = r"(http|https):\/\/\S+"
   return re.sub(url_pattern, "", tweet)
 
-def encode_tweets_in_batches(tweets, model, device, batch_size=64):
+
+def encode_tweets_in_batches(tweets, model, device, batch_size=32):
   """Encodes tweets in batches using the given Sentence Transformer model.
 
   Args:
@@ -37,7 +40,7 @@ def encode_tweets_in_batches(tweets, model, device, batch_size=64):
   return np.array(embeddings)
 
 
-def preprocess_data(filename="training.1600000.processed.noemoticon.csv", sample_size=None):
+def preprocess_data(filename="training-sample.csv", sample_size=None, batch_size=32):
 
   if sample_size:
     data = pd.read_csv(filename
@@ -56,17 +59,18 @@ def preprocess_data(filename="training.1600000.processed.noemoticon.csv", sample
   data.columns = ['label', 'date_int', 'date', 'query', 'author', 'tweet']
 
   # clean tweets
+  print("process tweets")
   data['tweet_processed'] = data['tweet'].apply(remove_handles)
   data['tweet_processed'] = data['tweet_processed'].apply(remove_url)
-  print(data.head(20))
+  print(data['tweet_processed'].head())
   
   # print(data[data.label==2]['tweet'].sample(frac=1).values)
 
-  # get sentence embeddings in batch
+  print("get sentence embeddings in batch")
   sentence_transformer = SentenceTransformer('all-MiniLM-L6-v2')
   tweets = data['tweet_processed']
   device = "cuda" if torch.cuda.is_available() else "cpu"
-  embeddings = encode_tweets_in_batches(tweets, model=sentence_transformer, device=device, batch_size=64)
+  embeddings = encode_tweets_in_batches(tweets, model=sentence_transformer, device=device, batch_size=batch_size)
 
   # Encode Labels
   label_encoder = LabelEncoder()
