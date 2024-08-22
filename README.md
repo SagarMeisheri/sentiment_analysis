@@ -1,15 +1,17 @@
-## sentiment_analysis
+# Sentiment Analysis
 
-This repository implements a sentiment classifier using TensorFlow and Sentence Transformers.
+This repository implements a sentiment classifier using TensorFlow and Sentence Transformers. It then uses google cloud function to create an api using the trained model & return a sentiment score for a senetence.
 
-## Requirements
+## Model training & evaluation
+
+### Requirements
 
 - Python 3.6 or later
 - TensorFlow (Installation)
 - Sentence Transformers (Installation)
 - scikit-learn (Installation)
 
-## Installation
+### Installation
 
 Create a virtual environment (recommended) to isolate dependencies:
 
@@ -23,7 +25,7 @@ Install required packages:
 ```
 pip install -r requirements.txt
 ```
-## Training the Model
+### Training the Model
 
 Prepare your training data in a CSV format with two columns: text (sentence) and label (sentiment, e.g., positive, negative).
 
@@ -46,7 +48,7 @@ python sentiment_analysis.py \
 - batch_size: Batch size for training (default: 64).
 - sample_size: Optional. Percentage of training data to use (default: all data).
 
-## Evaluating the Model
+### Evaluating the Model
 
 - After training, you can evaluate the model's performance on a separate test set or individual sentences.
 
@@ -61,7 +63,7 @@ python sentiment_analysis.py \
 - sentence: The sentence to classify.
 - The output will be a JSON string indicating the predicted sentiment and score (e.g., {"sentiment": "positive", "sentiment_score": "0.98"}).
 
-# REST-API: Google Cloud Function for Sentiment Analysis
+## REST-API: Google Cloud Function for Sentiment Analysis
 
 This repository contains a Google Cloud Function that analyzes the sentiment of a given sentence. It utilizes a pre-trained sentence transformer model (all-MiniLM-L6-v2) to encode the sentence into a numerical representation and a custom Keras sentiment model to predict the sentiment (positive or negative) based on the embedding.
 
