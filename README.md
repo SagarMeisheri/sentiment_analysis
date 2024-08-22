@@ -48,7 +48,7 @@ python sentiment_analysis.py \
 
 ## Evaluating the Model
 
-After training, you can evaluate the model's performance on a separate test set or individual sentences.
+- After training, you can evaluate the model's performance on a separate test set or individual sentences.
 
 Evaluate on a new sentence:
 
@@ -110,13 +110,12 @@ JSON
 ### Example cURL command:
 
 ```
-curl -X POST -H "Content-Type: application/json" -d '{"sentence": "This is a positive sentiment."}' https://REGION-PROJECT_ID.cloudfunctions.net/evaluate
+curl -X POST -H "Content-Type: application/json" -d '{"sentence": "This is a good book to read during travel."}' https://us-central1-jaldi-bol-ai.cloudfunctions.net/evaluate
 ```
-
 
 ### Response:
 
-The function will return a JSON response containing the predicted sentiment score (between 0.0 and 1.0) and the overall sentiment (positive or negative).
+- The function will return a JSON response containing the predicted sentiment score (between 0.0 and 1.0) and the overall sentiment (positive or negative).
 
 ```
 JSON
@@ -128,16 +127,16 @@ JSON
 
 ## Logging
 
-Cloud logging is enabled for this Cloud Function, providing detailed information about the execution process, including model loading times and sentiment predictions. You can access these logs in the Google Cloud Console to monitor and debug the function.
+- Cloud logging is enabled for this Cloud Function, providing detailed information about the execution process, including model loading times and sentiment predictions. You can access these logs in the Google Cloud Console to monitor and debug the function.
 
 ## Error Handling
 
-The function includes error handling to catch exceptions and return informative error messages in the response, allowing you to troubleshoot issues more effectively.
+- The function includes error handling to catch exceptions and return informative error messages in the response, allowing you to troubleshoot issues more effectively.
 
 ## Security Considerations
 
-This example uses --allow-unauthenticated for demonstration purposes. In production environments, consider implementing authentication and authorization mechanisms to control access to your Cloud Function.
+- This example uses --allow-unauthenticated for demonstration purposes. In production environments, consider implementing authentication and authorization mechanisms to control access to your Cloud Function.
 
 ## Contributing
 
-We encourage contributions to this project. Feel free to submit pull requests to improve the code or documentation.
+- We encourage contributions to this project. Feel free to submit pull requests to improve the code or documentation.
